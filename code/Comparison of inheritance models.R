@@ -33,7 +33,7 @@ data$alba.dom20 <- as.numeric(data$alba.dom20)
 
 pers.dom.1A_alba.dom20 <- lm(head.plumage.value ~ pers.dom.1A + alba.dom20, data = data)
 
-# Make a partially dominant model where 
+# Partially dominant model where 
 # 1A is partially dominant in alba (heterozygote is 25% more similar to alba compared to addive model) and
 # 20 is partially dominant in personata (heterozygote is 25% more similar to personata compared to addive model)
 data$alba.dom1A <- gsub("PP", 0, data$genotype.1A)
@@ -48,18 +48,19 @@ data$pers.dom20 <- as.numeric(data$pers.dom20)
 
 alba.dom.1A_pers.dom20 <- lm(head.plumage.value ~ alba.dom1A + pers.dom20 , data = data)
 
-# Make a partially dominant model where 
+# Partially dominant model where 
 # 1A is partially dominant in alba (heterozygote is 25% more similar to alba compared to addive model)
 # 20 is partially dominant in alba (heterozygote is 25% more similar to alba compared to addive model)
 
 alba.dom.1A_alba.dom20 <- lm(head.plumage.value ~ alba.dom1A + alba.dom20 , data = data)
 
-# Make a partially dominant model where 
+# Partially dominant model where 
 # 1A is partially dominant in personata (heterozygote is 25% more similar to personata compared to addive model)
 # 20 is partially dominant in personata (heterozygote is 25% more similar to personata compared to addive model)
 
 pers.dom.1A_pers.dom20 <- lm(head.plumage.value ~ pers.dom.1A + pers.dom20 , data = data)
 
+# model comparison. A model is considered significantly better if AIC (AICc, BIC) is lower by at least two points
 AIC(additive, pers.dom.1A_alba.dom20, alba.dom.1A_pers.dom20, alba.dom.1A_alba.dom20, pers.dom.1A_pers.dom20)
 
 #                        df      AIC
@@ -87,12 +88,12 @@ BIC(additive, pers.dom.1A_alba.dom20, alba.dom.1A_pers.dom20, alba.dom.1A_alba.d
 # alba.dom.1A_alba.dom20  4 449.8111
 # pers.dom.1A_pers.dom20  4 484.0275
 
-# pers.dom.1A_alba.dom20 (hypothesized mechnaism) is the best model across all tested
+# pers.dom.1A_alba.dom20 (hypothetical inheritance mechnaism) is the best model across all models tested.
 
-# Now adding the epistasis term 
+# Now adding the epistasis term to the best model from above.
 pers.dom.1A_alba.dom20_epistasis <- lm(head.plumage.value ~ pers.dom.1A + alba.dom20 + pers.dom.1A:alba.dom20, data = data)
 
-AICc(additive, pers.dom.1A_alba.dom20, alba.dom.1A_pers.dom20, alba.dom.1A_alba.dom20, pers.dom.1A_pers.dom20, pers.dom.1A_alba.dom20_epistasis)
+AIC(additive, pers.dom.1A_alba.dom20, alba.dom.1A_pers.dom20, alba.dom.1A_alba.dom20, pers.dom.1A_pers.dom20, pers.dom.1A_alba.dom20_epistasis)
 
 #                                  df      AIC
 # additive                          4 442.3477
@@ -102,9 +103,7 @@ AICc(additive, pers.dom.1A_alba.dom20, alba.dom.1A_pers.dom20, alba.dom.1A_alba.
 # pers.dom.1A_pers.dom20            4 475.7174
 # pers.dom.1A_alba.dom20_epistasis  5 423.3109
 
-#Model with dominance and epistatsis is the best. AIC, BIC and AICc agree with that.
-
-#Comparing the addiditve + epistatsis model to pers.dom.1A_alba.dom20_epistasis
+#Comparing the addiditve + epistatsis model to pers.dom.1A_alba.dom20_epistasis.
 additive_epistasis <- lm(head.plumage.value ~ add1A + add20 + add1A:add20, data = data)
 
 AIC(additive, pers.dom.1A_alba.dom20, alba.dom.1A_pers.dom20, alba.dom.1A_alba.dom20, pers.dom.1A_pers.dom20, pers.dom.1A_alba.dom20_epistasis, additive_epistasis)
@@ -117,3 +116,6 @@ AIC(additive, pers.dom.1A_alba.dom20, alba.dom.1A_pers.dom20, alba.dom.1A_alba.d
 # pers.dom.1A_pers.dom20            4 475.7174
 # pers.dom.1A_alba.dom20_epistasis  5 423.3109
 # additive_epistasis                5 444.3477
+
+# Model with partial dominance of personata alleles on chr 1A and partial dominance of alba alleles on chr 20, and with epistatic interaction between the two regions
+# is the best in describing the inheritance mechanism of head plumage. Different measures of model comparison (AIC, BIC and AICc) produce the same results.
