@@ -13,7 +13,7 @@ data$add20 <- gsub("Ap", 0.5, data$add20)
 data$add20 <- gsub("pp", 1, data$add20)
 data$add20 <- as.numeric(data$add20)
 
-additive <- lm(face.th.pxls ~ add1A + add20, data = data)
+additive <- lm(head.plumage.value ~ add1A + add20, data = data)
 
 # Make a partially dominant model where 
 # 1A is partially dominant in personata (heterozygote is 25% more similar to personata) and
@@ -28,7 +28,7 @@ data$alba.dom20 <- gsub("Ap", 0.75, data$alba.dom20)
 data$alba.dom20 <- gsub("pp", 0, data$alba.dom20)
 data$alba.dom20 <- as.numeric(data$alba.dom20)
 
-pers.dom.1A_alba.dom20 <- lm(face.th.pxls ~ pers.dom.1A + alba.dom20, data = data)
+pers.dom.1A_alba.dom20 <- lm(head.plumage.value ~ pers.dom.1A + alba.dom20, data = data)
 
 # Make a partially dominant model where 
 # 1A is partially dominant in alba (heterozygote is 25% more similar to alba) and
@@ -43,19 +43,19 @@ data$pers.dom20 <- gsub("Ap", 0.75, data$pers.dom20)
 data$pers.dom20 <- gsub("pp", 1, data$pers.dom20)
 data$pers.dom20 <- as.numeric(data$pers.dom20)
 
-alba.dom.1A_pers.dom20 <- lm(face.th.pxls ~ alba.dom1A + pers.dom20 , data = data)
+alba.dom.1A_pers.dom20 <- lm(head.plumage.value ~ alba.dom1A + pers.dom20 , data = data)
 
 # Make a partially dominant model where 
 # 1A is partially dominant in alba (heterozygote is 25% more similar to alba)
 # 20 is partially dominant in alba (heterozygote is 25% more similar to alba)
 
-alba.dom.1A_alba.dom20 <- lm(face.th.pxls ~ alba.dom1A + alba.dom20 , data = data)
+alba.dom.1A_alba.dom20 <- lm(head.plumage.value ~ alba.dom1A + alba.dom20 , data = data)
 
 # Make a partially dominant model where 
 # 1A is partially dominant in personata (heterozygote is 25% more similar to personata)
 # 20 is partially dominant in personata (heterozygote is 25% more similar to personata)
 
-pers.dom.1A_pers.dom20 <- lm(face.th.pxls ~ pers.dom.1A + pers.dom20 , data = data)
+pers.dom.1A_pers.dom20 <- lm(head.plumage.value ~ pers.dom.1A + pers.dom20 , data = data)
 
 AIC(additive, pers.dom.1A_alba.dom20, alba.dom.1A_pers.dom20, alba.dom.1A_alba.dom20, pers.dom.1A_pers.dom20)
 
@@ -87,7 +87,7 @@ BIC(additive, pers.dom.1A_alba.dom20, alba.dom.1A_pers.dom20, alba.dom.1A_alba.d
 # pers.dom.1A_alba.dom20 (hypothesized mechnaism) is the best model across all tested
 
 # Now adding the epistasis term 
-pers.dom.1A_alba.dom20_epistasis <- lm(face.th.pxls ~ pers.dom.1A + alba.dom20 + pers.dom.1A:alba.dom20, data = data)
+pers.dom.1A_alba.dom20_epistasis <- lm(head.plumage.value ~ pers.dom.1A + alba.dom20 + pers.dom.1A:alba.dom20, data = data)
 
 AICc(additive, pers.dom.1A_alba.dom20, alba.dom.1A_pers.dom20, alba.dom.1A_alba.dom20, pers.dom.1A_pers.dom20, pers.dom.1A_alba.dom20_epistasis)
 
@@ -102,7 +102,7 @@ AICc(additive, pers.dom.1A_alba.dom20, alba.dom.1A_pers.dom20, alba.dom.1A_alba.
 #Model with dominance and epistatsis is the best. AIC, BIC and AICc agree with that.
 
 #Comparing the addiditve + epistatsis model to pers.dom.1A_alba.dom20_epistasis
-additive_epistasis <- lm(face.th.pxls ~ add1A + add20 + add1A:add20, data = data)
+additive_epistasis <- lm(head.plumage.value ~ add1A + add20 + add1A:add20, data = data)
 
 AIC(additive, pers.dom.1A_alba.dom20, alba.dom.1A_pers.dom20, alba.dom.1A_alba.dom20, pers.dom.1A_pers.dom20, pers.dom.1A_alba.dom20_epistasis, additive_epistasis)
 
