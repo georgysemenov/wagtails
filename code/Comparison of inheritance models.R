@@ -3,7 +3,7 @@ data <- read.table("compound.genotypes1A.20.txt", header=T)
 #this dataset includes only individuals sampled within alba and personata hybrid zone
 # head.plumage.value is a measure of the amount of white coloration on the head and neck plumage (see Semenov et al. 2017 Mol. Ecol. for plumage quantification details)
 # Input file contains genotypic information for two genomic regions on chromsome 1A (aa=alba allele, aP=heterozygote, PP=personata allele) and 20 (AA=alba allele, Ap=heterozygote,
-# pp=personata alleles) encoded as biallelic loci. Alleles with partially dominant inheritance are capitilized.
+# pp=personata alleles) encoded as biallelic loci. Alleles with presumably partially dominant inheritance are capitilized.
 
 # Model with addiditive effects in both 1A and 20
 data$add1A <- gsub("PP", 1, data$genotype.1A)
@@ -65,7 +65,7 @@ AIC(additive, pers.dom.1A_alba.dom20, alba.dom.1A_pers.dom20, alba.dom.1A_alba.d
 
 #                        df      AIC
 # additive                4 442.3477
-# pers.dom.1A_alba.dom20  4 427.3859
+# pers.dom.1A_alba.dom20  4 427.3859 (Best model)
 # alba.dom.1A_pers.dom20  4 478.7637
 # alba.dom.1A_alba.dom20  4 441.5010
 # pers.dom.1A_pers.dom20  4 475.7174
@@ -74,7 +74,7 @@ AICc(additive, pers.dom.1A_alba.dom20, alba.dom.1A_pers.dom20, alba.dom.1A_alba.
 
 #                        df     AICc
 # additive                4 443.0884
-# pers.dom.1A_alba.dom20  4 428.1267
+# pers.dom.1A_alba.dom20  4 428.1267 (Best model)
 # alba.dom.1A_pers.dom20  4 479.5044
 # alba.dom.1A_alba.dom20  4 442.2417
 # pers.dom.1A_pers.dom20  4 476.4581
@@ -83,7 +83,7 @@ BIC(additive, pers.dom.1A_alba.dom20, alba.dom.1A_pers.dom20, alba.dom.1A_alba.d
 
 #                        df      BIC
 # additive                4 450.6578
-# pers.dom.1A_alba.dom20  4 435.6961
+# pers.dom.1A_alba.dom20  4 435.6961 (Best model)
 # alba.dom.1A_pers.dom20  4 487.0738
 # alba.dom.1A_alba.dom20  4 449.8111
 # pers.dom.1A_pers.dom20  4 484.0275
@@ -101,7 +101,7 @@ AIC(additive, pers.dom.1A_alba.dom20, alba.dom.1A_pers.dom20, alba.dom.1A_alba.d
 # alba.dom.1A_pers.dom20            4 478.7637
 # alba.dom.1A_alba.dom20            4 441.5010
 # pers.dom.1A_pers.dom20            4 475.7174
-# pers.dom.1A_alba.dom20_epistasis  5 423.3109
+# pers.dom.1A_alba.dom20_epistasis  5 423.3109 (Best model)
 
 #Comparing the addiditve + epistatsis model to pers.dom.1A_alba.dom20_epistasis.
 additive_epistasis <- lm(head.plumage.value ~ add1A + add20 + add1A:add20, data = data)
@@ -114,8 +114,8 @@ AIC(additive, pers.dom.1A_alba.dom20, alba.dom.1A_pers.dom20, alba.dom.1A_alba.d
 # alba.dom.1A_pers.dom20            4 478.7637
 # alba.dom.1A_alba.dom20            4 441.5010
 # pers.dom.1A_pers.dom20            4 475.7174
-# pers.dom.1A_alba.dom20_epistasis  5 423.3109
+# pers.dom.1A_alba.dom20_epistasis  5 423.3109 (Best model)
 # additive_epistasis                5 444.3477
 
 # Model with partial dominance of personata alleles on chr 1A and partial dominance of alba alleles on chr 20, and with epistatic interaction between the two regions
-# is the best in describing the inheritance mechanism of head plumage. Different measures of model comparison (AIC, BIC and AICc) produce the same results.
+# is the best in describing the inheritance mechanism of head plumage. Different measures of model comparison (AIC, BIC and AICc) produce congruent results.
