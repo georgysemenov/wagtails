@@ -1,4 +1,3 @@
-library(tidyverse)
 data <- read.table("compound.genotypes1A.20.txt", header=T)
 #this dataset includes only individuals sampled within the hyrbid zone
 
@@ -16,6 +15,7 @@ data$add20 <- gsub("pp", 1, data$add20)
 data$add20 <- as.numeric(data$add20)
 
 additive <- lm(head.plumage.value ~ add1A + add20, data = data)
+
 #adding the epistatic term
 additive_epistasis <- lm(head.plumage.value ~ add1A + add20 + add1A:add20, data = data)
 
@@ -35,6 +35,7 @@ data$alba.dom20 <- gsub("pp", 1, data$alba.dom20)
 data$alba.dom20 <- as.numeric(data$alba.dom20)
 
 pers.dom.1A_alba.dom20 <- lm(head.plumage.value ~ pers.dom.1A + alba.dom20, data = data)
+
 #adding the epistatic term
 pers.dom.1A_alba.dom20_epistasis <- lm(head.plumage.value ~ pers.dom.1A + alba.dom20 + pers.dom.1A:alba.dom20, data = data)
 
@@ -113,12 +114,10 @@ alba.full.dom.1A_pers.full.dom20_epistasis <- lm(head.plumage.value ~ alba.full.
 
 # 1A is dominant in alba 
 # 20 is dominant in alba 
-
 alba.full.dom.1A_alba.full.dom20 <- lm(head.plumage.value ~ alba.full.dom1A + alba.full.dom20 , data = data)
 
 #adding the epistatic term
 alba.full.dom.1A_alba.full.dom20_epsitasis <- lm(head.plumage.value ~ alba.full.dom1A + alba.full.dom20 + alba.full.dom1A:alba.full.dom20, data = data)
-
 
 # 1A is dominant in personata
 # 20 is dominant in personata 
@@ -126,7 +125,6 @@ pers.full.dom.1A_pers.full.dom20 <- lm(head.plumage.value ~ pers.full.dom.1A + p
 
 #adding the epistatic term
 pers.full.dom.1A_pers.full.dom20_epistasis <- lm(head.plumage.value ~ pers.full.dom.1A + pers.full.dom20 + pers.full.dom.1A:pers.full.dom20, data = data)
-
 
 ############### MODEL COMPARISON ################
 
