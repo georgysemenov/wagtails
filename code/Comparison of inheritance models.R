@@ -1,9 +1,9 @@
 data <- read.table("compound.genotypes1A.20.txt", header=T)
 #this dataset includes only individuals sampled within the hyrbid zone
 
-############### ADDITIVE MODEL ################
+############### ADDITIVE/CODOMINANT MODEL ################
 
-# Model with addiditive effects in both 1A and 20
+# Model with addiditive effects in both 1A and 20 and codominant inhertance of the phenotype
 data$add1A <- gsub("PP", 1, data$genotype.1A)
 data$add1A <- gsub("aP", 0.5, data$add1A)
 data$add1A <- gsub("aa", 0, data$add1A)
