@@ -3,7 +3,7 @@ data <- read.table("compound.genotypes1A.20.txt", header=T)
 
 ############### ADDITIVE/CODOMINANT MODEL ################
 
-# Model with addiditive effects in both 1A and 20 and codominant inhertance of the phenotype
+# Model with codominant effects in both 1A and 20 and additive inhertance of the phenotype
 data$add1A <- gsub("PP", 1, data$genotype.1A)
 data$add1A <- gsub("aP", 0.5, data$add1A)
 data$add1A <- gsub("aa", 0, data$add1A)
